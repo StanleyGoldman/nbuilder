@@ -40,8 +40,16 @@ namespace FizzWare.NBuilder.PropertyNaming
 
         public override void SetValuesOf<T>(T obj)
         {
-            _sequenceNumber = 1;
+            GetRandomSequenceNumber();
             base.SetValuesOf(obj);
+        }
+
+        private void GetRandomSequenceNumber()
+        {
+            var seed = unchecked((int)(DateTime.Now - DateTime.MinValue).Ticks);
+            var random = new Random(seed);
+            var timeDifference = (DateTime.MaxValue - DateTime.Now).Days;
+            _sequenceNumber = random.Next(0, timeDifference - 1);
         }
 
         /// <summary>
